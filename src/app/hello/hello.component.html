@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" name="" id="" [(ngModel)]="searchedData" placeholder="Search the University List.....">
+            </div>
+            <div class="col">
+                <select name="" id="" class="form-control">
+                    <option value="">----Choose any option-----</option>
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <!-- <div style="width: 80vw;"> -->
+        <div class="t1">
+            <table class="table table-hover table-bordered" width="100%">
+                <tr>
+                    <th>Name of University</th>
+                    <th>State</th>
+                    <th>Website</th>
+                </tr>
+                <tr *ngFor="let uObj of univList | univFilter : searchedData | paginate:{
+                                                                itemsPerPage: 10,
+                                                                currentPage: startLink,
+                                                                totalItems: totalList
+                                                            }">
+                    <td>{{uObj.name}}</td>
+                    <td>{{uObj['state-province']}}</td>
+                    <td *ngFor="let wb of uObj.web_pages">
+                        <a [href]="wb" target="_blank">{{wb}}</a>
+                    </td>
+                </tr>
+            </table>
+            <pagination-controls (pageChange)="startLink = $event"></pagination-controls>
+        </div>
+        <!-- </div> -->
+    </div>
+</div>
